@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1d82a5e4-d6c5-4bd2-92ef-950bc6de69b2" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="9d1b04cd-b393-491f-b8b7-6caeffa586c5" file="myconfig-${env}.yaml" />
+	<global-property doc:name="Global Property" doc:id="eb13145b-69d8-4a8f-aaba-2f44b63176c6" name="env" value="Dev" />
+	<flow name="mulesoft-jenkins-cicd-integration-apiFlow" doc:id="2e8ae17d-34b5-46ad-8c68-0176f03e2d05" >
+		<http:listener doc:name="Listener" doc:id="6439b080-ecd8-46d3-b957-6426910fa33f" config-ref="HTTP_Listener_config" path="{http.path}"/>
+		<logger level="INFO" doc:name="start log" doc:id="42f1f0c7-4310-4136-bf7e-0c8a0c6ab63a" message="========flow execution was started============"/>
+		<set-variable value="#[message.attributes.queryParams.num1]" doc:name="num1 " doc:id="adc2bb76-5b03-4f50-a5cd-3dcdece5426f" variableName="num1"/>
+		<set-variable value="#[message.attributes.queryParams.num2]" doc:name="num2" doc:id="317f7950-dd13-4059-b058-17a133d956b7" variableName="num2"/>
+		<ee:transform doc:name="json response" doc:id="ac9e7858-c8ab-417f-b6a2-b93438ff98cb" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": p('log.message'),
+	"addition": (vars.num1 as Number + vars.num2 as Number),
+	"substraction": (vars.num1  as Number - vars.num2 as Number),
+	"multiplication": (vars.num1 as Number * vars.num2 as Number),
+	"division": (vars.num1 as Number / vars.num2 as Number)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="end log" doc:id="eca8b5e6-2536-445f-9f28-09d9a2340794" message="========arithimetic completed=========="/>
+	</flow>
+</mule>
