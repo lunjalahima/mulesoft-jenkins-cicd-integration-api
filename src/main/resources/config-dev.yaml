@@ -4,7 +4,7 @@ http:
   path: "cicd"
   
 log:
-  message: "welcome to CI CD Process"
+  message: "welcome to CI/CD Process"
   
 deployment:
   app:
