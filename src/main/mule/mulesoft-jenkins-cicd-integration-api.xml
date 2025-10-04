@@ -8,8 +8,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1d82a5e4-d6c5-4bd2-92ef-950bc6de69b2" >
 		<http:listener-connection host="${http.host}" port="${http.port}" />
 	</http:listener-config>
-	<configuration-properties doc:name="Configuration properties" doc:id="9d1b04cd-b393-491f-b8b7-6caeffa586c5" file="myconfig-${env}.yaml" />
-	<global-property doc:name="Global Property" doc:id="eb13145b-69d8-4a8f-aaba-2f44b63176c6" name="env" value="Dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="9d1b04cd-b393-491f-b8b7-6caeffa586c5" file="config-${env}.yaml" />
+	<global-property doc:name="Global Property" doc:id="eb13145b-69d8-4a8f-aaba-2f44b63176c6" name="env" value="dev" />
 	<flow name="mulesoft-jenkins-cicd-integration-apiFlow" doc:id="2e8ae17d-34b5-46ad-8c68-0176f03e2d05" >
 		<http:listener doc:name="Listener" doc:id="6439b080-ecd8-46d3-b957-6426910fa33f" config-ref="HTTP_Listener_config" path="{http.path}"/>
 		<logger level="INFO" doc:name="start log" doc:id="42f1f0c7-4310-4136-bf7e-0c8a0c6ab63a" message="========flow execution was started============"/>
