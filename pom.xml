@@ -31,7 +31,7 @@
 			  <configuration>
 			    <cloudHubDeployment>
 			      <uri>https://anypoint.mulesoft.com</uri>
-			      <muleVersion>${deployment.app.runtime}</muleVersion>
+			      <muleVersion>${app.runtime}</muleVersion>
 			      <username>${anypoint.username}</username>
 			      <password>${anypoint.password}</password>
 			      <applicationName>${project.artifactId}</applicationName>			      
@@ -91,12 +91,18 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	   <distributionManagement>
-        <repository>
-            <id>anypoint-exchange</id>
-            <name>Anypoint Exchange</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
-        </repository>
-    </distributionManagement>
+	<distributionManagement>
+	    <repository>
+	        <id>anypoint-exchange</id>
+	        <name>Anypoint Exchange Releases</name>
+	        <url>https://maven.anypoint.mulesoft.com/api/v3/maven/releases</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>anypoint-exchange-snapshots</id>
+	        <name>Anypoint Exchange Snapshots</name>
+	        <url>https://maven.anypoint.mulesoft.com/api/v3/maven/snapshots</url>
+	    </snapshotRepository>
+	</distributionManagement>
+
 
 </project>
