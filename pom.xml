@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
@@ -19,32 +20,26 @@
 
     <build>
         <plugins>
-            <!-- Clean Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
-
-            <!-- Mule Maven Plugin for CloudHub 2.0 -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <cloudHub2Deployment>
-                        <applicationName>${project.artifactId}</applicationName>
-                        <environment>${env}</environment>
-                        <region>${deployment.region}</region>
-                        <workers>${deployment.workers}</workers>
-                        <workerType>${deployment.workerType}</workerType>
-                        <muleVersion>${app.runtime}</muleVersion>
-                        <properties>
-                            <http.port>${http.port}</http.port>
-                            <mule.env>${env}</mule.env>
-                        </properties>
-                    </cloudHub2Deployment>
+                    <deployments>
+                        <cloudHub2Deployment>
+                            <applicationName>${project.artifactId}</applicationName>
+                            <environment>${env}</environment>
+                            <region>${deployment.region}</region>
+                            <workers>${deployment.workers}</workers>
+                            <workerType>${deployment.workerType}</workerType>
+                            <muleVersion>${app.runtime}</muleVersion>
+                            <properties>
+                                <http.port>${http.port}</http.port>
+                                <mule.env>${env}</mule.env>
+                            </properties>
+                        </cloudHub2Deployment>
+                    </deployments>
                 </configuration>
             </plugin>
         </plugins>
@@ -64,4 +59,23 @@
             <classifier>mule-plugin</classifier>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>anypoint-exchange-v3</id>
+            <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>anypoint-exchange</id>
+            <url>https://maven.anypoint.mulesoft.com/api/v3/maven/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>anypoint-exchange-snapshots</id>
+            <url>https://maven.anypoint.mulesoft.com/api/v3/maven/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
