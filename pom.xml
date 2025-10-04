@@ -30,13 +30,16 @@
 				  <version>${mule.maven.plugin.version}</version>
 				  <extensions>true</extensions>
 				  <configuration>
-				    <cloudHubDeployment>
+				    <cloudHub2Deployment>
 				      <uri>https://anypoint.mulesoft.com</uri>
 				      <muleVersion>${app.runtime}</muleVersion>
 				      <username>${anypoint.username}</username>
 				      <password>${anypoint.password}</password>
 				      <applicationName>${project.artifactId}</applicationName>
-				      <environment>${env}</environment>
+				      <environment>dev</environment>
+					  <target>dev</target>
+					  <replicas>1</replicas>
+				      <runtimeVersion>4.10.0</runtimeVersion>
 				      <region>us-east-1</region> 
 				      <workers>1</workers>       
 				      <workerType>Micro</workerType> 
@@ -45,7 +48,7 @@
 				        <http.port>${http.port}</http.port>
 				        <mule.env>${env}</mule.env>
 				      </properties>
-				    </cloudHubDeployment>
+				    </cloudHub2Deployment>
 				  </configuration>
 				</plugin>
 		</plugins>
